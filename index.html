@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mi Página Web</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-image: url(''); /* Fondo de pantalla */
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-position: center;
+            background-color: rgba(240, 240, 240, 0.8); 
+            scroll-behavior: smooth; 
+        }
+        
+        header {
+            background-color: rgba(51, 51, 51, 0.8);
+            color: #fff;
+            padding: 2%;
+            text-align: center;
+            transition: background-color 0.3s ease; 
+        }
+        
+        header:hover {
+            background-color: rgba(85, 85, 85, 0.8); 
+        }
+        
+        nav ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+        }
+        
+        nav ul li {
+            display: inline;
+            margin-right: 2%;
+            transition: transform 0.3s ease; 
+        }
+        
+        nav ul li:hover {
+            transform: scale(1.1); 
+        }
+        
+        nav ul li a {
+            color: #fff;
+            text-decoration: none;
+            transition: color 0.3s ease; 
+        }
+        
+        nav ul li a:hover {
+            color: #ffd700; 
+        }
+        
+        main {
+            padding: 2%;
+        }
+        
+        section {
+            margin-bottom: 3%;
+            background-color: rgba(255, 255, 255, 0.8); 
+            border-radius: 10px;
+            padding: 2%;
+            box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease; 
+        }
+        
+        section:hover {
+            transform: translateY(-5px); 
+        }
+        
+        section h2 {
+            color: #333;
+            border-bottom: 2px solid #333;
+            padding-bottom: 1%;
+            margin-bottom: 2%;
+        }
+        
+        section p {
+            color: #555;
+        }
+        
+        footer {
+            background-color: rgba(51, 51, 51, 0.8); 
+            color: #fff;
+            text-align: center;
+            padding: 1%;
+            bottom: 0;
+            width: 100%;
+        }
+        
+       
+        .contact-info i {
+            margin-right: 10px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>¡Bienvenido a Mi Página Web!</h1>
+        <nav>
+            <ul>
+                <li><a href="#apuesta">Apuesta</a></li>
+                <li><a href="#historial">Historial de Apuestas</a></li>
+            </ul>
+        </nav>
+    </header>
+    
+    <main>
+        <section id="apuesta">
+            <h2>Hacer una Apuesta</h2>
+            <form id="apuestaForm" action="/submit" method="POST">
+                <label for="nombre">Tu Nombre:</label>
+                <input type="text" id="nombre" name="nombre" required>
+                <fieldset>
+                    <legend>Elige al ganador:</legend>
+                    <input type="radio" id="jugador1" name="ganador" value="Jugador 1" required>
+                    <label for="jugador1">Jugador 1</label><br>
+                    <input type="radio" id="jugador2" name="ganador" value="Jugador 2" required>
+                    <label for="jugador2">Jugador 2</label>
+                </fieldset>
+                <button type="submit" onclick="submitForm()">Enviar Apuesta</button>
+            </form>
+        </section>
+        <section id="historial">
+            <h2>Historial de Apuestas</h2>
+            <!-- Aquí mostrarás el historial de apuestas -->
+            <!-- Por ejemplo, podrías utilizar PHP para obtener los datos de la base de datos y mostrarlos aquí -->
+            <p>Historial de apuestas...</p>
+        </section>
+        
+    </main>
+    
+    <footer>
+        <p>Derechos de autor © 2024 Mi Página Web. Todos los derechos reservados.</p>
+    </footer>
+
+    <script>
+        function submitForm() {
+            var nombre = document.getElementById('nombre').value;
+            var ganador = document.querySelector('input[name="ganador"]:checked').value;
+
+            fetch('/submit', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({nombre: nombre, ganador: ganador}),
+            })
+            .then(response => response.text())
+            .then(result => {
+                alert(result);
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        }
+    </script>
+
+</body>
+</html>
